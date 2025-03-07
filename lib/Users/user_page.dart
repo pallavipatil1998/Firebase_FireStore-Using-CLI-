@@ -30,8 +30,13 @@ class _UserPageState extends State<UserPage> {
         title: Text("User App"),
       ),
       body: StreamBuilder(
-          stream: db.collection("users").snapshots(),
-          // future: db.collection("notes").get(),
+          stream: db.collection("users").where("name",isGreaterThanOrEqualTo: "pallavi").where("name",isLessThanOrEqualTo: "palla"+ '\uf8ff').snapshots(),
+
+
+          // stream: db.collection("users").where("name",isEqualTo: "Sulbha").snapshots(),
+
+          // stream: db.collection("users").where("age",isGreaterThan: 22).snapshots(),
+
           builder: (ctx, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
