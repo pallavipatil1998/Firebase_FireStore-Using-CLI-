@@ -38,7 +38,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late FirebaseFirestore db;
-  late CollectionReference notesData;
   var titleController = TextEditingController();
   var descController = TextEditingController();
 
@@ -47,14 +46,13 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     db = FirebaseFirestore.instance;
-    notesData = FirebaseFirestore.instance.collection("notes");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("FireStore"),
+      appBar: AppBar(backgroundColor: Colors.blue.shade100,centerTitle: true,
+        title: Text("Notes App"),
       ),
       body: StreamBuilder(
           stream: db.collection("notes").snapshots(),
@@ -70,10 +68,13 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (ctx, index) {
                     var model =
                         NoteModel.fromJson(snapshot.data!.docs[index].data());
+                    model.id= snapshot.data!.docs[index].id!;
+
                     return InkWell(
                       onTap: () {
                         titleController.text = model.title!;
                         descController.text = model.body!;
+
                         showModalBottomSheet(
                             context: context,
                             builder: (ctx) {
@@ -90,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text("Add Note"),
+                                      Text("Update Note"),
                                       SizedBox(
                                         height: 20,
                                       ),
@@ -121,28 +122,27 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       ElevatedButton(
                                           onPressed: () {
-                                            var mTitle =
+                                            var mMTitle =
                                                 titleController.text.toString();
-                                            var mDesc =
+                                            var mDDesc =
                                                 descController.text.toString();
 
-                                            notesData
-                                                .doc("notes")
-                                                .update(NoteModel(
-                                                        title: mTitle,
-                                                        body: mDesc)
-                                                    .toJson())
-                                                .then((value) {
-                                              print("value");
-                                            }).catchError((e) {
-                                              print(e);
-                                            });
+                                            db.collection("notes").doc(model.id).set(NoteModel(
+                                              title:mMTitle ,
+                                              body: mDDesc
+                                            ).toJson()
+                                            );
+
+                                           /* db.collection("notes").doc(model.id).update(NoteModel(
+                                              title:mMTitle ,
+                                              body:mDDesc ,
+                                            ).toJson());*/
+
 
                                             titleController.clear();
                                             descController.clear();
                                             Navigator.pop(context);
 
-                                            setState(() {});
                                           },
                                           child: Text("Update"))
                                     ],
@@ -157,12 +157,7 @@ class _HomePageState extends State<HomePage> {
                         subtitle: Text(model.body!),
                         trailing: InkWell(
                             onTap: () {
-                              db.doc("notes").delete().then((value) {
-                                print("data deleted");
-                              }).catchError((error) {
-                                print(error);
-                              });
-                              setState(() {});
+                              db.collection("notes").doc(model.id).delete();
                             },
                             child: Icon(Icons.delete)),
                       ),
@@ -231,7 +226,6 @@ class _HomePageState extends State<HomePage> {
                               descController.clear();
                               Navigator.pop(context);
 
-                              setState(() {});
                             },
                             child: Text("ADD"))
                       ],
