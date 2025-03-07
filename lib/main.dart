@@ -39,6 +39,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late FirebaseFirestore db;
+  var titleController=TextEditingController();
+  var descController=TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -74,13 +77,42 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
           onPressed: (){
 
-            db.collection("notes").add(NoteModel(title: "flutter app development",
-                body: "using firestore database").toJson()).then((value){
-                  print("ID:=> ${value.id}");
-            });
-            setState(() {
+            showModalBottomSheet(context: context,
+                builder: (ctx){
+              return Container(
+                child:  Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text("Add Note"),
+                    SizedBox(height: 20,),
+                    TextField(controller: titleController,),
+                    SizedBox(height: 10,),
+                    TextField(controller: descController,),
+                    SizedBox(height: 30,),
+                    ElevatedButton(onPressed: (){
+                      var mTitle=titleController.text.toString();
+                      var mDesc=descController.text.toString();
 
-            });
+                      db.collection("notes").add(NoteModel(title: mTitle, body: mDesc).toJson()).then((value){
+                        print("ID:=> ${value.id}");
+                      });
+                      titleController.clear();
+                      descController.clear();
+                      Navigator.pop(context);
+
+                      setState(() {
+
+                      });
+                    },
+                        child: Text("ADD")
+                    )
+
+                  ],
+                ),
+              );
+
+                }
+            );
 
           },
         child: Icon(Icons.add),
