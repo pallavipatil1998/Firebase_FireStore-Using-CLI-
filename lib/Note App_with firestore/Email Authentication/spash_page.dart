@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/login_page.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/note_home_page.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/user_preference.dart';
+import 'package:flutter_fire_cli/Note%20App_with%20firestore/Email%20Authentication/user_preference.dart';
+
+import 'login_page.dart';
+import 'note_home_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

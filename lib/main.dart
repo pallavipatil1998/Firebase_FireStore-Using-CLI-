@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/login_page.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/spash_page.dart';
 import 'package:flutter_fire_cli/Users/user_page.dart';
 import 'package:flutter_fire_cli/note_model.dart';
 
+import 'Note App_with firestore/Email Authentication/spash_page.dart';
 import 'firebase_options.dart';
 
 void main() async {

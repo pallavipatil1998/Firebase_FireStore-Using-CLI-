@@ -3,8 +3,9 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/note_user_model.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/user_preference.dart';
+import 'package:flutter_fire_cli/Note%20App_with%20firestore/Email%20Authentication/user_preference.dart';
+
+import 'note_user_model.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});

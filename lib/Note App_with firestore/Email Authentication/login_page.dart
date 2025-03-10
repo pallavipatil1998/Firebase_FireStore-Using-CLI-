@@ -1,10 +1,10 @@
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/note_home_page.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/signup_page.dart';
+import 'package:flutter_fire_cli/Note%20App_with%20firestore/Email%20Authentication/signup_page.dart';
 import 'package:flutter_fire_cli/main.dart';
+
+import 'note_home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

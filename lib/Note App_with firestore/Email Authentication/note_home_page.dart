@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/login_page.dart';
-import 'package:flutter_fire_cli/Email%20Authentication/user_preference.dart';
+import 'package:flutter_fire_cli/Note%20App_with%20firestore/Email%20Authentication/user_preference.dart';
 
-import '../note_model.dart';
+import '../../note_model.dart';
+import 'login_page.dart';
 
 class NoteHomePage extends StatefulWidget {
   String id;
