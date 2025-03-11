@@ -11,9 +11,16 @@ class PhoneAuthScreen extends StatefulWidget {
 class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final OtpFieldController _otpController = OtpFieldController();
-  final FirebaseAuth auth = FirebaseAuth.instance;
+ late final FirebaseAuth auth ;
   String _mVerificationId="";
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    auth= FirebaseAuth.instance;
+  }
 
 
   @override
@@ -40,16 +47,16 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue.shade400
               ),
-              onPressed: ()async{
+              onPressed: (){
 
                 auth.setSettings(forceRecaptchaFlow: false,appVerificationDisabledForTesting: true);
 
-                await auth.verifyPhoneNumber(
+                auth.verifyPhoneNumber(
                   phoneNumber: '+91${_phoneController.text.toString()
                   }',
 
-                  verificationCompleted: (PhoneAuthCredential credential) async{
-                    await auth.signInWithCredential(credential).then((value) {
+                  verificationCompleted: (PhoneAuthCredential credential){
+                    auth.signInWithCredential(credential).then((value) {
                       print("Logged in: ${value.user!.uid}");
                     });
 
@@ -65,7 +72,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
                         SnackBar(content: Text("Verification failed: ${e.message}")));
                   },
 
-                  codeSent: (String verificationId, int? resendToken) async{
+                  codeSent: (String verificationId, int? resendToken){
 
                     _mVerificationId=verificationId;
                     print("CodeSent: ${_mVerificationId}");
@@ -90,7 +97,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
               style: const TextStyle(fontSize: 17),
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,
-              onCompleted: (pin) => ()async{
+              onCompleted: (pin) => (){
                 // Update the UI - wait for the user to enter the SMS code
                 String otp = "${_otpController.toString()}";
 
@@ -98,7 +105,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
                 var credential = PhoneAuthProvider.credential(verificationId: _mVerificationId, smsCode: pin);
 
                 // Sign the user in (or link) with the credential
-                await auth.signInWithCredential(credential).then((value) {
+                auth.signInWithCredential(credential).then((value) {
                   print("Logged in: ${value.user!.uid}");
                 });
 
