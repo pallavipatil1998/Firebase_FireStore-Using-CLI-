@@ -5,6 +5,7 @@ import 'package:flutter_fire_cli/Users/user_page.dart';
 import 'package:flutter_fire_cli/note_model.dart';
 
 import 'Note App_with firestore/Email Authentication/spash_page.dart';
+import 'PhoneAuth/phone_auth.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SplashPage()
+        home: PhoneAuthScreen()
     );
   }
 }
