@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+     <string>To Pick user image from user gallery to maintain user profile in app</string>
+     <key>NSCameraUsageDescription</key>
+     <string>To Capture user image using camera to maintain user profile in app</string>
+     <key>NSMicrophoneUsageDescription</key>
+     <string>To Capture voice with video using camera to verify user profile authenticity in app</string>
 </dict>
 </plist>
